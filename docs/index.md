@@ -65,27 +65,20 @@ The deciduous-tree fraction is `0.000` for all neighbourhoods.
 
 ## Heat Hazard and Risk Paradox for Present Scenario
 
-The present hot-humid scenario has now been run for all 10 UDA-city
-neighbourhoods. The first pass uses the reference bridge supplied with the
-dataset:
+**Table 1. Present Scenario Heat Hazard and Risk Ranking**
 
-- hazard: dangerous-heat hours, counted when hourly mean `T2 > 35 C`
-- exposure: daytime population density
-- vulnerability: equal-weighted synthetic socio-economic vulnerability proxies
-- risk: geometric mean of hazard, exposure, and vulnerability, scaled to `[0, 1]`
-
-| Rank | Neighbourhood | Type | Dangerous heat hours | Risk index |
-|---:|---|---|---:|---:|
-| 1 | Kampong Lama | hotspot | 42 | 1.000 |
-| 2 | Dhobi Lines | hotspot | 26 | 0.833 |
-| 3 | Fuzhou Lanes | hotspot | 22 | 0.800 |
-| 4 | Mlima Moto | hotspot | 5 | 0.429 |
-| 5 | Lusitano Square | core | 5 | 0.176 |
-| 6 | Victoria Exchange | core | 5 | 0.151 |
-| 7 | Jade Gardens | refuge | 62 | 0.000 |
-| 7 | Taman Melati | refuge | 47 | 0.000 |
-| 7 | Serendib Rise | refuge | 26 | 0.000 |
-| 7 | Zheng He Towers | core | 2 | 0.000 |
+| Grid | Neighbourhood | Type | Dangerous heat hours | Day pop. | Hazard | Exposure | Vulnerability | Risk index | Rank |
+|---:|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 4 | Kampong Lama | hotspot | 42 | 300 | 0.667 | 1.000 | 0.950 | 1.000 | 1 |
+| 5 | Dhobi Lines | hotspot | 26 | 300 | 0.400 | 1.000 | 0.916 | 0.833 | 2 |
+| 9 | Fuzhou Lanes | hotspot | 22 | 300 | 0.333 | 1.000 | 0.972 | 0.800 | 3 |
+| 7 | Mlima Moto | hotspot | 5 | 300 | 0.050 | 1.000 | 1.000 | 0.429 | 4 |
+| 6 | Lusitano Square | core | 5 | 250 | 0.050 | 0.773 | 0.089 | 0.176 | 5 |
+| 8 | Victoria Exchange | core | 5 | 250 | 0.050 | 0.773 | 0.056 | 0.151 | 6 |
+| 1 | Jade Gardens | refuge | 62 | 80 | 1.000 | 0.000 | 0.324 | 0.000 | 7 |
+| 3 | Taman Melati | refuge | 47 | 80 | 0.750 | 0.000 | 0.363 | 0.000 | 7 |
+| 2 | Serendib Rise | refuge | 26 | 80 | 0.400 | 0.000 | 0.274 | 0.000 | 7 |
+| 10 | Zheng He Towers | core | 2 | 250 | 0.000 | 0.773 | 0.000 | 0.000 | 7 |
 
 The main pattern is that the highest heat hazard is not automatically the
 highest heat risk. Jade Gardens has the most dangerous-heat hours, but Kampong
@@ -105,6 +98,20 @@ each neighbourhood. Jade Gardens has the highest heat hazard, but its final risk
 is low because exposure is low. Kampong Lama ranks highest for final risk
 because its substantial heat hazard overlaps with high exposure and
 vulnerability.
+
+## Key Results and Interpretation
+
+- **Kampong Lama has the highest final heat-risk score** because it combines
+  substantial heat hazard with high exposure and high vulnerability.
+- **Jade Gardens has the highest heat hazard** with 62 dangerous-heat hours, but
+  its final risk score is low because daytime population exposure is low.
+- **Hotspot neighbourhoods dominate the top risk ranks**, showing that social
+  exposure and vulnerability strongly shape heat risk.
+- **The ranking shows a heat hazard-risk paradox:** the hottest neighbourhood is
+  not necessarily the neighbourhood where people are most at risk.
+- **These scores are relative rankings within UDA-city**, so they compare the
+  10 neighbourhoods with each other rather than predicting absolute health
+  outcomes.
 
 ## Hackathon Task
 
