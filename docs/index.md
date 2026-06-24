@@ -1,12 +1,29 @@
-# UDA-city Hackathon Setup
+# UDA-city Heat Risk Analysis
 
-This repository is set up for the SUEWS Community Hackathon practice workflow.
+UDA-city is a synthetic hot-humid city with 10 neighbourhoods that differ in
+surface cover, building form, population exposure, and vulnerability. This
+analysis uses SUEWS to estimate neighbourhood heat hazard and then links that
+hazard to socio-economic heat risk. The main question is where heat-risk
+planning should be prioritised, not just which place is physically hottest.
 
 ## Objective
 
 To compare present and future neighbourhood heat risk in UDA-city, using SUEWS
 modelled heat hazard together with population exposure and vulnerability, and to
 identify where heat-risk planning should be prioritised.
+
+## Meteorological Forcing
+
+The simulations use an hourly ERA5-derived hot-humid forcing for a synthetic
+coastal South Asian setting. The forcing period is `2024-03-02 01:00` to
+`2024-06-01 00:00` local time, with March used as model spin-up and April-May
+as the main hot-season analysis period.
+
+The forcing variables used by SUEWS are air temperature (`Tair`), relative
+humidity (`RH`), wind speed (`U`), air pressure (`pres`), incoming shortwave
+radiation (`kdown`), incoming longwave radiation (`ldown`), and rainfall
+(`rain`). The present scenario uses the ERA5-derived forcing directly; the
+future scenario applies a uniform `+2.5 C` pseudo-warming to air temperature.
 
 ## Neighbourhood Characteristics
 
