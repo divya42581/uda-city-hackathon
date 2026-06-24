@@ -3,22 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UDA-city Interactive Heat Risk Report</title>
+  <title>UDA-city Heat Risk Report</title>
   <style>
     :root {
-      color-scheme: light;
       --ink: #1b1f24;
-      --muted: #5f6875;
+      --muted: #5d6673;
       --line: #d9dee7;
-      --bg: #f7f8fb;
+      --bg: #f6f7fa;
       --surface: #ffffff;
+      --dark: #16202d;
       --hazard: #df6500;
       --risk: #27384b;
       --change: #b71833;
       --accent: #087f8c;
-      --hotspot: #b71833;
-      --core: #6f5aa8;
-      --refuge: #16845f;
     }
 
     * {
@@ -30,346 +27,180 @@
       background: var(--bg);
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     header {
-      background: #17202c;
-      color: white;
-      padding: 28px clamp(18px, 5vw, 64px) 24px;
+      background: var(--dark);
+      color: #fff;
+      padding: 30px clamp(18px, 5vw, 64px);
     }
 
     header h1 {
-      margin: 0 0 8px;
-      font-size: clamp(1.6rem, 3vw, 3rem);
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 4vw, 3.1rem);
       letter-spacing: 0;
     }
 
     header p {
+      max-width: 940px;
       margin: 0;
-      max-width: 920px;
-      color: #d7dde7;
-      font-size: 1rem;
+      color: #dce3ed;
+      font-size: 1.05rem;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      padding: 10px clamp(14px, 5vw, 64px);
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 4px 18px 4px 0;
+      color: var(--dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
     }
 
     main {
-      width: min(1180px, calc(100% - 28px));
-      margin: 22px auto 42px;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      align-items: end;
-      margin-bottom: 16px;
-    }
-
-    .control {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-    }
-
-    .control label {
-      display: block;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .segmented {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-
-    button,
-    select {
-      font: inherit;
-    }
-
-    .segmented button,
-    .type-filter button {
-      min-height: 38px;
-      border: 1px solid var(--line);
-      background: #f8fafc;
-      border-radius: 6px;
-      color: var(--ink);
-      cursor: pointer;
-      font-weight: 650;
-    }
-
-    .segmented button.active,
-    .type-filter button.active {
-      background: var(--ink);
-      color: white;
-      border-color: var(--ink);
-    }
-
-    select {
-      width: 100%;
-      min-height: 38px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: white;
-      color: var(--ink);
-      padding: 0 10px;
-    }
-
-    .type-filter {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .stat {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-left: 5px solid var(--accent);
-      border-radius: 8px;
-      padding: 13px 14px;
-      min-height: 92px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.55rem;
-      line-height: 1.1;
-      margin-bottom: 6px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.8fr);
-      gap: 16px;
-      align-items: start;
+      width: min(1160px, calc(100% - 28px));
+      margin: 24px auto 46px;
     }
 
     section {
+      margin: 0 0 22px;
+    }
+
+    .intro-grid,
+    .cards,
+    .findings {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .panel,
+    .card,
+    .figure,
+    .table-panel {
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 8px;
+    }
+
+    .panel,
+    .card {
       padding: 16px;
     }
 
-    .section-head {
-      display: flex;
-      gap: 12px;
-      justify-content: space-between;
-      align-items: flex-start;
+    .panel strong,
+    .card strong {
+      display: block;
+      font-size: 1.45rem;
+      line-height: 1.15;
       margin-bottom: 8px;
     }
 
-    h2 {
+    .panel span,
+    .card p {
+      color: var(--muted);
       margin: 0;
-      font-size: 1.16rem;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 1.45rem;
       letter-spacing: 0;
     }
 
-    .caption {
-      margin: 8px 0 0;
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+    }
+
+    .section-note {
+      max-width: 920px;
       color: var(--muted);
-      font-size: 0.92rem;
+      margin: 0 0 12px;
     }
 
-    .legend {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: 0.88rem;
+    .figure {
+      padding: 14px;
+      margin-top: 12px;
     }
 
-    .legend span::before {
-      content: "";
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 2px;
-      margin-right: 6px;
-      vertical-align: -1px;
-      background: currentColor;
-    }
-
-    .chart-wrap {
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-
-    svg {
+    .figure img {
       display: block;
       width: 100%;
-      min-width: 760px;
-      height: 500px;
-    }
-
-    .bar {
-      cursor: pointer;
-      transition: opacity 120ms ease, filter 120ms ease;
-    }
-
-    .bar:hover {
-      filter: brightness(0.92);
-    }
-
-    .axis,
-    .gridline {
-      stroke: var(--line);
-      stroke-width: 1;
-    }
-
-    .axis-label,
-    .tick,
-    .bar-label,
-    .value-label {
-      fill: var(--ink);
-      font-size: 12px;
-    }
-
-    .bar-label {
-      font-size: 13px;
-    }
-
-    .value-label {
-      font-weight: 700;
-    }
-
-    .details {
-      display: grid;
-      gap: 12px;
-    }
-
-    .neighbourhood-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .neighbourhood-grid button {
-      min-height: 42px;
-      text-align: left;
+      height: auto;
       border: 1px solid var(--line);
-      border-radius: 7px;
-      background: #fbfcfe;
-      padding: 8px 10px;
-      cursor: pointer;
+      border-radius: 6px;
+      background: #fff;
     }
 
-    .neighbourhood-grid button.active {
-      border-color: var(--ink);
-      box-shadow: inset 0 0 0 1px var(--ink);
-    }
-
-    .tag {
-      display: inline-block;
-      margin-top: 4px;
-      color: white;
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-
-    .tag.hotspot {
-      background: var(--hotspot);
-    }
-
-    .tag.core {
-      background: var(--core);
-    }
-
-    .tag.refuge {
-      background: var(--refuge);
-    }
-
-    .metric-list {
-      display: grid;
-      gap: 8px;
-    }
-
-    .metric-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 8px;
-    }
-
-    .metric-row:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .metric-row span {
+    .caption {
+      margin: 10px 2px 0;
       color: var(--muted);
+      font-size: 0.95rem;
     }
 
-    .metric-row strong {
-      font-variant-numeric: tabular-nums;
-    }
-
-    .insights {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .insights article {
-      background: var(--surface);
-      border: 1px solid var(--line);
+    .callout {
+      border-left: 5px solid var(--accent);
+      background: #eef8f9;
+      padding: 14px 16px;
       border-radius: 8px;
-      padding: 14px;
+      margin: 12px 0 0;
     }
 
-    .insights h3 {
-      margin: 0 0 6px;
-      font-size: 1rem;
-    }
-
-    .insights p {
+    .callout p {
       margin: 0;
-      color: var(--muted);
-      font-size: 0.92rem;
     }
 
-    .table-section {
-      margin-top: 16px;
+    .cards .card:nth-child(1) {
+      border-top: 4px solid var(--hazard);
     }
 
-    .table-wrap {
+    .cards .card:nth-child(2) {
+      border-top: 4px solid var(--risk);
+    }
+
+    .cards .card:nth-child(3) {
+      border-top: 4px solid var(--change);
+    }
+
+    .table-panel {
       overflow-x: auto;
+      padding: 0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 940px;
-      font-size: 0.9rem;
+      min-width: 900px;
+      font-size: 0.92rem;
     }
 
     th,
     td {
-      padding: 9px 10px;
+      padding: 10px 11px;
       border-bottom: 1px solid var(--line);
       text-align: right;
       font-variant-numeric: tabular-nums;
+    }
+
+    th {
+      background: #eef1f6;
+      color: #354152;
+      font-weight: 750;
     }
 
     th:first-child,
@@ -381,118 +212,204 @@
       text-align: left;
     }
 
-    th {
-      background: #f1f4f8;
-      color: #384252;
-      font-weight: 750;
+    .method-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    @media (max-width: 900px) {
-      .toolbar,
-      .stats,
-      .layout,
-      .insights {
+    .method-list li {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    footer {
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 28px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 860px) {
+      .intro-grid,
+      .cards,
+      .findings {
         grid-template-columns: 1fr;
       }
 
-      .neighbourhood-grid {
-        grid-template-columns: 1fr;
+      nav {
+        position: static;
       }
 
-      header {
-        padding-top: 22px;
+      nav a {
+        margin-right: 12px;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>UDA-city Interactive Heat Risk Report</h1>
-    <p>Explore how the present and future SUEWS heat-hazard simulations translate into neighbourhood heat-risk priorities across UDA-city.</p>
+    <h1>UDA-city Heat Risk Report</h1>
+    <p>
+      A clear present-versus-future summary of SUEWS modelled heat hazard,
+      population exposure, vulnerability, and final heat-risk priorities across
+      the 10 UDA-city neighbourhoods.
+    </p>
   </header>
 
+  <nav aria-label="Page sections">
+    <a href="#summary">Summary</a>
+    <a href="#present">Present</a>
+    <a href="#future">Future</a>
+    <a href="#comparison">Comparison</a>
+    <a href="#methods">Methods</a>
+  </nav>
+
   <main>
-    <div class="toolbar" aria-label="Interactive report controls">
-      <div class="control">
-        <label>Scenario</label>
-        <div class="segmented" id="scenarioButtons">
-          <button class="active" data-scenario="present" type="button">Present</button>
-          <button data-scenario="future" type="button">Future</button>
-          <button data-scenario="change" type="button">Change</button>
+    <section id="summary">
+      <h2>Executive Summary</h2>
+      <p class="section-note">
+        The future +2.5 C pseudo-warming scenario increases dangerous-heat
+        hours across every neighbourhood. However, the highest physical heat
+        hazard is not always the highest final heat risk because risk also
+        depends on exposure and vulnerability.
+      </p>
+
+      <div class="intro-grid">
+        <div class="panel">
+          <strong>Kampong Lama</strong>
+          <span>Highest final heat risk in both present and future scenarios.</span>
+        </div>
+        <div class="panel">
+          <strong>Jade Gardens</strong>
+          <span>Highest heat hazard, but low final risk because daytime exposure is low.</span>
+        </div>
+        <div class="panel">
+          <strong>+162 hours</strong>
+          <span>Average increase in dangerous-heat hours across the 10 neighbourhoods.</span>
         </div>
       </div>
-      <div class="control">
-        <label for="metricSelect">Metric</label>
-        <select id="metricSelect">
-          <option value="dangerous">Dangerous-heat hours</option>
-          <option value="hazard">Scaled heat hazard</option>
-          <option value="risk">Final risk index</option>
-        </select>
+
+      <div class="callout">
+        <p>
+          <strong>Main interpretation:</strong> planning should not be based on
+          heat hazard alone. The priority areas are where heat hazard overlaps
+          with high population exposure and social vulnerability.
+        </p>
       </div>
-      <div class="control">
-        <label>Neighbourhood type</label>
-        <div class="type-filter" id="typeButtons">
-          <button class="active" data-type="all" type="button">All</button>
-          <button data-type="hotspot" type="button">Hotspot</button>
-          <button data-type="core" type="button">Core</button>
-          <button data-type="refuge" type="button">Refuge</button>
-        </div>
+    </section>
+
+    <section id="present">
+      <h2>Present Scenario</h2>
+      <p class="section-note">
+        In the present hot-humid scenario, Jade Gardens records the most
+        dangerous-heat hours, while Kampong Lama has the highest final risk.
+        This is the first heat hazard-risk paradox in the analysis.
+      </p>
+
+      <div class="cards">
+        <article class="card">
+          <h3>Highest Heat Hazard</h3>
+          <strong>Jade Gardens</strong>
+          <p>62 dangerous-heat hours.</p>
+        </article>
+        <article class="card">
+          <h3>Highest Final Risk</h3>
+          <strong>Kampong Lama</strong>
+          <p>Risk index = 1.000.</p>
+        </article>
+        <article class="card">
+          <h3>Planning Meaning</h3>
+          <strong>Hazard is not enough</strong>
+          <p>Population exposure changes the final priority ranking.</p>
+        </article>
       </div>
-    </div>
 
-    <div class="stats" id="stats"></div>
+      <figure class="figure">
+        <img src="present_hazard_risk_bar.png" alt="Present scenario bar plot comparing heat hazard and final risk by UDA-city neighbourhood.">
+        <figcaption class="caption">
+          Figure 1. Present heat hazard and final risk. Orange shows scaled
+          heat hazard and dark blue shows final risk.
+        </figcaption>
+      </figure>
+    </section>
 
-    <div class="layout">
-      <section>
-        <div class="section-head">
-          <div>
-            <h2 id="chartTitle">Neighbourhood Heat Risk</h2>
-            <p class="caption" id="chartCaption"></p>
-          </div>
-          <div class="legend">
-            <span style="color: var(--hazard)">Hazard</span>
-            <span style="color: var(--risk)">Risk</span>
-            <span style="color: var(--change)">Change</span>
-          </div>
-        </div>
-        <div class="chart-wrap">
-          <svg id="chart" role="img" aria-label="Interactive neighbourhood heat risk bar chart"></svg>
-        </div>
-      </section>
+    <section id="future">
+      <h2>Future Scenario</h2>
+      <p class="section-note">
+        In the future +2.5 C pseudo-warming scenario, dangerous-heat hours
+        increase sharply. Kampong Lama remains the highest final-risk
+        neighbourhood, while Jade Gardens remains the highest physical hazard.
+      </p>
 
-      <section class="details">
-        <div>
-          <h2 id="selectedTitle">Selected Neighbourhood</h2>
-          <p class="caption">Click a bar or neighbourhood name to inspect the present-to-future shift.</p>
-        </div>
-        <div class="neighbourhood-grid" id="neighbourhoodButtons"></div>
-        <div class="metric-list" id="detailMetrics"></div>
-      </section>
-    </div>
-
-    <div class="insights">
-      <article>
-        <h3>Main change</h3>
-        <p>Dangerous-heat hours increase in every neighbourhood under the future +2.5 C scenario.</p>
-      </article>
-      <article>
-        <h3>Priority signal</h3>
-        <p>Kampong Lama remains the highest final-risk neighbourhood because high hazard overlaps with high exposure and vulnerability.</p>
-      </article>
-      <article>
-        <h3>Risk paradox</h3>
-        <p>Jade Gardens has the highest heat hazard in both scenarios, but its final risk remains low because daytime exposure is low.</p>
-      </article>
-    </div>
-
-    <section class="table-section">
-      <div class="section-head">
-        <div>
-          <h2>Present-Future Comparison Table</h2>
-          <p class="caption">Values compare the present hot-humid scenario with the future +2.5 C pseudo-warming scenario.</p>
-        </div>
+      <div class="cards">
+        <article class="card">
+          <h3>Highest Heat Hazard</h3>
+          <strong>Jade Gardens</strong>
+          <p>260 dangerous-heat hours.</p>
+        </article>
+        <article class="card">
+          <h3>Highest Final Risk</h3>
+          <strong>Kampong Lama</strong>
+          <p>Risk index = 1.000.</p>
+        </article>
+        <article class="card">
+          <h3>Close Priority Group</h3>
+          <strong>Fuzhou / Dhobi</strong>
+          <p>Both remain very high-risk hotspot neighbourhoods.</p>
+        </article>
       </div>
-      <div class="table-wrap">
+
+      <figure class="figure">
+        <img src="future_hazard_risk_bar.png" alt="Future scenario bar plot comparing heat hazard and final risk by UDA-city neighbourhood.">
+        <figcaption class="caption">
+          Figure 2. Future heat hazard and final risk under the +2.5 C
+          pseudo-warming scenario.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="comparison">
+      <h2>Present-Future Comparison</h2>
+      <p class="section-note">
+        The future scenario increases dangerous-heat hours everywhere. The
+        largest increase occurs in Kampong Lama, followed by Jade Gardens and
+        Taman Melati. Final risk rankings change less than heat hazard because
+        exposure and vulnerability are held constant in this comparison.
+      </p>
+
+      <figure class="figure">
+        <img src="present_future_comparison.png" alt="Bar plot showing the increase in dangerous-heat hours from present to future for each neighbourhood.">
+        <figcaption class="caption">
+          Figure 3. Increase in dangerous-heat hours from present to future.
+          Values are future minus present dangerous-heat hours.
+        </figcaption>
+      </figure>
+
+      <div class="findings">
+        <article class="card">
+          <h3>Largest Increase</h3>
+          <strong>Kampong Lama</strong>
+          <p>+207 dangerous-heat hours.</p>
+        </article>
+        <article class="card">
+          <h3>Rank Change</h3>
+          <strong>Fuzhou rises</strong>
+          <p>Fuzhou Lanes moves from rank 3 to rank 2.</p>
+        </article>
+        <article class="card">
+          <h3>Stable Paradox</h3>
+          <strong>Jade remains low risk</strong>
+          <p>High hazard does not become high final risk because exposure remains low.</p>
+        </article>
+      </div>
+
+      <div class="table-panel" style="margin-top: 14px;">
         <table>
           <thead>
             <tr>
@@ -509,251 +426,51 @@
               <th>Future rank</th>
             </tr>
           </thead>
-          <tbody id="comparisonRows"></tbody>
+          <tbody>
+            <tr><td>4</td><td>Kampong Lama</td><td>hotspot</td><td>42</td><td>249</td><td>+207</td><td>1.000</td><td>1.000</td><td>+0.000</td><td>1</td><td>1</td></tr>
+            <tr><td>9</td><td>Fuzhou Lanes</td><td>hotspot</td><td>22</td><td>212</td><td>+190</td><td>0.800</td><td>0.930</td><td>+0.130</td><td>3</td><td>2</td></tr>
+            <tr><td>5</td><td>Dhobi Lines</td><td>hotspot</td><td>26</td><td>217</td><td>+191</td><td>0.833</td><td>0.923</td><td>+0.089</td><td>2</td><td>3</td></tr>
+            <tr><td>7</td><td>Mlima Moto</td><td>hotspot</td><td>5</td><td>149</td><td>+144</td><td>0.429</td><td>0.761</td><td>+0.332</td><td>4</td><td>4</td></tr>
+            <tr><td>6</td><td>Lusitano Square</td><td>core</td><td>5</td><td>129</td><td>+124</td><td>0.176</td><td>0.280</td><td>+0.104</td><td>5</td><td>5</td></tr>
+            <tr><td>8</td><td>Victoria Exchange</td><td>core</td><td>5</td><td>120</td><td>+115</td><td>0.151</td><td>0.225</td><td>+0.074</td><td>6</td><td>6</td></tr>
+            <tr><td>1</td><td>Jade Gardens</td><td>refuge</td><td>62</td><td>260</td><td>+198</td><td>0.000</td><td>0.000</td><td>+0.000</td><td>7</td><td>7</td></tr>
+            <tr><td>3</td><td>Taman Melati</td><td>refuge</td><td>47</td><td>243</td><td>+196</td><td>0.000</td><td>0.000</td><td>+0.000</td><td>7</td><td>7</td></tr>
+            <tr><td>2</td><td>Serendib Rise</td><td>refuge</td><td>26</td><td>205</td><td>+179</td><td>0.000</td><td>0.000</td><td>+0.000</td><td>7</td><td>7</td></tr>
+            <tr><td>10</td><td>Zheng He Towers</td><td>core</td><td>2</td><td>77</td><td>+75</td><td>0.000</td><td>0.000</td><td>+0.000</td><td>7</td><td>7</td></tr>
+          </tbody>
         </table>
       </div>
     </section>
+
+    <section id="methods">
+      <h2>How To Read This Report</h2>
+      <ul class="method-list">
+        <li>
+          <strong>Heat hazard</strong> is the number of hours where hourly mean
+          SUEWS 2 m air temperature is above 35 C.
+        </li>
+        <li>
+          <strong>Exposure</strong> is represented by daytime population
+          density. A physically hot area with low daytime exposure can still
+          have low final risk.
+        </li>
+        <li>
+          <strong>Vulnerability</strong> combines proxy indicators including
+          age structure, low AC access, outdoor workers, and deprivation.
+        </li>
+        <li>
+          <strong>Final risk</strong> combines hazard, exposure, and
+          vulnerability using a geometric mean. Results are relative rankings
+          within UDA-city, not absolute health-outcome predictions.
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      SUEWS Community Hackathon practice report. Present and future outputs are
+      based on the UDA-city synthetic dataset and the future +2.5 C
+      pseudo-warming scenario.
+    </footer>
   </main>
-
-  <script>
-    const DATA = [
-      { grid: 4, name: "Kampong Lama", type: "hotspot", presentHours: 42, futureHours: 249, presentHazard: 0.667, futureHazard: 0.940, presentRisk: 1.000, futureRisk: 1.000, presentRank: 1, futureRank: 1 },
-      { grid: 9, name: "Fuzhou Lanes", type: "hotspot", presentHours: 22, futureHours: 212, presentHazard: 0.333, futureHazard: 0.738, presentRisk: 0.800, futureRisk: 0.930, presentRank: 3, futureRank: 2 },
-      { grid: 5, name: "Dhobi Lines", type: "hotspot", presentHours: 26, futureHours: 217, presentHazard: 0.400, futureHazard: 0.765, presentRisk: 0.833, futureRisk: 0.923, presentRank: 2, futureRank: 3 },
-      { grid: 7, name: "Mlima Moto", type: "hotspot", presentHours: 5, futureHours: 149, presentHazard: 0.050, futureHazard: 0.393, presentRisk: 0.429, futureRisk: 0.761, presentRank: 4, futureRank: 4 },
-      { grid: 6, name: "Lusitano Square", type: "core", presentHours: 5, futureHours: 129, presentHazard: 0.050, futureHazard: 0.284, presentRisk: 0.176, futureRisk: 0.280, presentRank: 5, futureRank: 5 },
-      { grid: 8, name: "Victoria Exchange", type: "core", presentHours: 5, futureHours: 120, presentHazard: 0.050, futureHazard: 0.235, presentRisk: 0.151, futureRisk: 0.225, presentRank: 6, futureRank: 6 },
-      { grid: 1, name: "Jade Gardens", type: "refuge", presentHours: 62, futureHours: 260, presentHazard: 1.000, futureHazard: 1.000, presentRisk: 0.000, futureRisk: 0.000, presentRank: 7, futureRank: 7 },
-      { grid: 3, name: "Taman Melati", type: "refuge", presentHours: 47, futureHours: 243, presentHazard: 0.750, futureHazard: 0.907, presentRisk: 0.000, futureRisk: 0.000, presentRank: 7, futureRank: 7 },
-      { grid: 2, name: "Serendib Rise", type: "refuge", presentHours: 26, futureHours: 205, presentHazard: 0.400, futureHazard: 0.699, presentRisk: 0.000, futureRisk: 0.000, presentRank: 7, futureRank: 7 },
-      { grid: 10, name: "Zheng He Towers", type: "core", presentHours: 2, futureHours: 77, presentHazard: 0.000, futureHazard: 0.000, presentRisk: 0.000, futureRisk: 0.000, presentRank: 7, futureRank: 7 }
-    ].map((d) => ({
-      ...d,
-      hourChange: d.futureHours - d.presentHours,
-      riskChange: +(d.futureRisk - d.presentRisk).toFixed(3),
-      hazardChange: +(d.futureHazard - d.presentHazard).toFixed(3)
-    }));
-
-    const state = {
-      scenario: "present",
-      metric: "dangerous",
-      type: "all",
-      selected: "Kampong Lama"
-    };
-
-    const metricMeta = {
-      dangerous: {
-        label: "dangerous-heat hours",
-        present: "presentHours",
-        future: "futureHours",
-        change: "hourChange",
-        format: (v, mode) => mode === "change" ? `+${Math.round(v)}` : `${Math.round(v)}`,
-        color: "var(--hazard)"
-      },
-      hazard: {
-        label: "scaled heat hazard",
-        present: "presentHazard",
-        future: "futureHazard",
-        change: "hazardChange",
-        format: (v, mode) => mode === "change" ? `${v >= 0 ? "+" : ""}${v.toFixed(3)}` : v.toFixed(3),
-        color: "var(--hazard)"
-      },
-      risk: {
-        label: "final risk index",
-        present: "presentRisk",
-        future: "futureRisk",
-        change: "riskChange",
-        format: (v, mode) => mode === "change" ? `${v >= 0 ? "+" : ""}${v.toFixed(3)}` : v.toFixed(3),
-        color: "var(--risk)"
-      }
-    };
-
-    const chart = document.querySelector("#chart");
-    const stats = document.querySelector("#stats");
-    const tableBody = document.querySelector("#comparisonRows");
-    const detailMetrics = document.querySelector("#detailMetrics");
-    const neighbourhoodButtons = document.querySelector("#neighbourhoodButtons");
-    const chartTitle = document.querySelector("#chartTitle");
-    const chartCaption = document.querySelector("#chartCaption");
-    const selectedTitle = document.querySelector("#selectedTitle");
-
-    function filteredData() {
-      return DATA.filter((d) => state.type === "all" || d.type === state.type);
-    }
-
-    function scenarioField(metric = state.metric) {
-      return metricMeta[metric][state.scenario];
-    }
-
-    function sortedData() {
-      const field = scenarioField();
-      return filteredData().slice().sort((a, b) => b[field] - a[field]);
-    }
-
-    function typeTag(type) {
-      return `<span class="tag ${type}">${type}</span>`;
-    }
-
-    function renderStats() {
-      const highestFutureRisk = DATA.slice().sort((a, b) => b.futureRisk - a.futureRisk)[0];
-      const largestHeatIncrease = DATA.slice().sort((a, b) => b.hourChange - a.hourChange)[0];
-      const highestFutureHazard = DATA.slice().sort((a, b) => b.futureHours - a.futureHours)[0];
-      const avgIncrease = DATA.reduce((sum, d) => sum + d.hourChange, 0) / DATA.length;
-
-      stats.innerHTML = [
-        { value: highestFutureRisk.name, label: "Highest future final risk" },
-        { value: `+${Math.round(largestHeatIncrease.hourChange)}`, label: `Largest heat-hour increase: ${largestHeatIncrease.name}` },
-        { value: highestFutureHazard.name, label: `${highestFutureHazard.futureHours} future dangerous-heat hours` },
-        { value: `+${avgIncrease.toFixed(0)}`, label: "Mean increase in dangerous-heat hours" }
-      ].map((item) => `<div class="stat"><strong>${item.value}</strong><span>${item.label}</span></div>`).join("");
-    }
-
-    function renderChart() {
-      const data = sortedData();
-      const meta = metricMeta[state.metric];
-      const field = scenarioField();
-      const values = data.map((d) => d[field]);
-      const maxValue = Math.max(...values, state.scenario === "change" ? 1 : 1);
-      const width = 960;
-      const height = Math.max(500, data.length * 44 + 90);
-      const margin = { top: 20, right: 96, bottom: 52, left: 230 };
-      const plotWidth = width - margin.left - margin.right;
-      const rowHeight = (height - margin.top - margin.bottom) / data.length;
-      const barHeight = Math.min(26, rowHeight * 0.58);
-      const x = (value) => margin.left + (value / maxValue) * plotWidth;
-      const color = state.scenario === "change" ? "var(--change)" : meta.color;
-      const titleMode = state.scenario === "present" ? "Present" : state.scenario === "future" ? "Future" : "Future change in";
-
-      chart.setAttribute("viewBox", `0 0 ${width} ${height}`);
-      chart.style.height = `${height}px`;
-      chartTitle.textContent = `${titleMode} ${meta.label}`;
-      chartCaption.textContent = state.scenario === "change"
-        ? "Bars show the future value minus the present value. Click a bar to inspect a neighbourhood."
-        : "Bars show the selected scenario value. Click a bar to inspect the present-to-future shift.";
-
-      const ticks = state.metric === "dangerous" && state.scenario !== "change"
-        ? [0, 50, 100, 150, 200, 250]
-        : state.metric === "dangerous"
-          ? [0, 50, 100, 150, 200]
-          : [0, 0.25, 0.5, 0.75, 1.0];
-
-      const grid = ticks.map((tick) => {
-        const gx = x(tick);
-        return `<line class="gridline" x1="${gx}" x2="${gx}" y1="${margin.top}" y2="${height - margin.bottom}"></line>
-          <text class="tick" x="${gx}" y="${height - 24}" text-anchor="middle">${state.metric === "dangerous" ? tick : tick.toFixed(2)}</text>`;
-      }).join("");
-
-      const bars = data.map((d, i) => {
-        const y = margin.top + i * rowHeight + (rowHeight - barHeight) / 2;
-        const value = d[field];
-        const barWidth = Math.max(2, x(value) - margin.left);
-        const active = d.name === state.selected ? 1 : 0.78;
-        return `<text class="bar-label" x="${margin.left - 14}" y="${y + barHeight / 2 + 4}" text-anchor="end">${d.name} (${d.type})</text>
-          <rect class="bar" data-name="${d.name}" x="${margin.left}" y="${y}" width="${barWidth}" height="${barHeight}" rx="3" fill="${color}" opacity="${active}"></rect>
-          <text class="value-label" x="${Math.min(margin.left + barWidth + 10, width - 38)}" y="${y + barHeight / 2 + 4}">${meta.format(value, state.scenario)}</text>`;
-      }).join("");
-
-      chart.innerHTML = `${grid}<line class="axis" x1="${margin.left}" x2="${width - margin.right}" y1="${height - margin.bottom}" y2="${height - margin.bottom}"></line>${bars}<text class="axis-label" x="${margin.left + plotWidth / 2}" y="${height - 4}" text-anchor="middle">${meta.label}</text>`;
-
-      chart.querySelectorAll(".bar").forEach((bar) => {
-        bar.addEventListener("click", () => {
-          state.selected = bar.dataset.name;
-          render();
-        });
-      });
-    }
-
-    function renderNeighbourhoodButtons() {
-      neighbourhoodButtons.innerHTML = filteredData().map((d) => `
-        <button type="button" data-name="${d.name}" class="${d.name === state.selected ? "active" : ""}">
-          <strong>${d.name}</strong><br>${typeTag(d.type)}
-        </button>
-      `).join("");
-
-      neighbourhoodButtons.querySelectorAll("button").forEach((button) => {
-        button.addEventListener("click", () => {
-          state.selected = button.dataset.name;
-          render();
-        });
-      });
-    }
-
-    function renderDetails() {
-      const selected = DATA.find((d) => d.name === state.selected) || filteredData()[0] || DATA[0];
-      state.selected = selected.name;
-      selectedTitle.textContent = `${selected.name} (${selected.type})`;
-      detailMetrics.innerHTML = [
-        ["Type", selected.type],
-        ["Present dangerous-heat hours", selected.presentHours],
-        ["Future dangerous-heat hours", selected.futureHours],
-        ["Increase in dangerous-heat hours", `+${selected.hourChange}`],
-        ["Present risk index", selected.presentRisk.toFixed(3)],
-        ["Future risk index", selected.futureRisk.toFixed(3)],
-        ["Risk index change", `${selected.riskChange >= 0 ? "+" : ""}${selected.riskChange.toFixed(3)}`],
-        ["Present rank", selected.presentRank],
-        ["Future rank", selected.futureRank]
-      ].map(([label, value]) => `<div class="metric-row"><span>${label}</span><strong>${value}</strong></div>`).join("");
-    }
-
-    function renderTable() {
-      tableBody.innerHTML = DATA.map((d) => `
-        <tr>
-          <td>${d.grid}</td>
-          <td>${d.name}</td>
-          <td>${d.type}</td>
-          <td>${d.presentHours}</td>
-          <td>${d.futureHours}</td>
-          <td>+${d.hourChange}</td>
-          <td>${d.presentRisk.toFixed(3)}</td>
-          <td>${d.futureRisk.toFixed(3)}</td>
-          <td>${d.riskChange >= 0 ? "+" : ""}${d.riskChange.toFixed(3)}</td>
-          <td>${d.presentRank}</td>
-          <td>${d.futureRank}</td>
-        </tr>
-      `).join("");
-    }
-
-    function renderButtons() {
-      document.querySelectorAll("#scenarioButtons button").forEach((button) => {
-        button.classList.toggle("active", button.dataset.scenario === state.scenario);
-      });
-      document.querySelectorAll("#typeButtons button").forEach((button) => {
-        button.classList.toggle("active", button.dataset.type === state.type);
-      });
-    }
-
-    function render() {
-      if (!filteredData().some((d) => d.name === state.selected)) {
-        state.selected = filteredData()[0]?.name || DATA[0].name;
-      }
-      renderButtons();
-      renderStats();
-      renderChart();
-      renderNeighbourhoodButtons();
-      renderDetails();
-      renderTable();
-    }
-
-    document.querySelectorAll("#scenarioButtons button").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.scenario = button.dataset.scenario;
-        render();
-      });
-    });
-
-    document.querySelectorAll("#typeButtons button").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.type = button.dataset.type;
-        render();
-      });
-    });
-
-    document.querySelector("#metricSelect").addEventListener("change", (event) => {
-      state.metric = event.target.value;
-      render();
-    });
-
-    render();
-  </script>
 </body>
 </html>
