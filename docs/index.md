@@ -63,7 +63,7 @@ The deciduous-tree fraction is `0.000` for all neighbourhoods.
    was scaled from `0` to `1` and used to rank neighbourhoods. [`risk_bridge.py`,
    `risk_bridge.md`]
 
-## Step 1: Present Heat Risk
+## Heat Hazard and Risk Paradox for Present Scenario
 
 The present hot-humid scenario has now been run for all 10 UDA-city
 neighbourhoods. The first pass uses the reference bridge supplied with the
