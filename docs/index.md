@@ -2,6 +2,12 @@
 
 This repository is set up for the SUEWS Community Hackathon practice workflow.
 
+## Objective
+
+To compare present and future neighbourhood heat risk in UDA-city, using SUEWS
+modelled heat hazard together with population exposure and vulnerability, and to
+identify where heat-risk planning should be prioritised.
+
 ## Neighbourhood Characteristics
 
 UDA-city has 10 synthetic neighbourhoods. Surface fractions are from the
