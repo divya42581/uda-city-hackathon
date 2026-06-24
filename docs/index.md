@@ -99,6 +99,29 @@ highest value among the 10 neighbourhoods.
   10 neighbourhoods with each other rather than predicting absolute health
   outcomes.
 
+## Hazard-to-Risk Bridge
+
+**Where the bridge is scientifically strong**
+
+- It separates physical heat hazard from social risk, which is important
+  because the hottest place is not always the highest-risk place.
+- It combines hazard, exposure, and vulnerability, matching common climate-risk
+  framing.
+- The method is transparent: each metric is scaled and the final risk formula is
+  clear.
+- It is useful for comparing neighbourhood priorities inside the same synthetic
+  city.
+
+**Where the bridge becomes weaker**
+
+- It does not validate risk against observed health outcomes.
+- Vulnerability proxies may miss important factors such as health status,
+  housing quality, access to cooling centres, or outdoor activity timing.
+- The geometric mean can hide details; a neighbourhood may rank high for
+  different reasons than another.
+- Scaling within only 10 neighbourhoods means results are sensitive to the
+  chosen study area.
+
 ## SUEWS Citation
 
 Jarvi, L., Grimmond, C.S.B. and Christen, A. (2011). The Surface Urban Energy
