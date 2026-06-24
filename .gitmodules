@@ -1,0 +1,3 @@
+[submodule "data/uda-city-hackathon"]
+	path = data/uda-city-hackathon
+	url = https://github.com/UMEP-dev/uda-city-hackathon
