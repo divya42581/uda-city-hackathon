@@ -92,6 +92,20 @@ highest heat risk. Jade Gardens has the most dangerous-heat hours, but Kampong
 Lama ranks highest for risk because the reference bridge combines hazard with
 much higher exposure and vulnerability.
 
+![Horizontal bar chart comparing scaled heat hazard and final risk for each UDA-city neighbourhood.](present_hazard_risk_bar.png)
+
+**Figure 1. Present-day heat hazard and final risk across UDA-city
+neighbourhoods.** Both metrics are scaled from `0` to `1`, where `1` is the
+highest value among the 10 neighbourhoods. Orange shows physical heat hazard;
+dark blue shows the final heat-risk index after exposure and vulnerability are
+included.
+
+To read the plot, compare the orange hazard bar with the dark blue risk bar for
+each neighbourhood. Jade Gardens has the highest heat hazard, but its final risk
+is low because exposure is low. Kampong Lama ranks highest for final risk
+because its substantial heat hazard overlaps with high exposure and
+vulnerability.
+
 ## Hackathon Task
 
 The full hackathon task is to use SUEWS to produce a heat-hazard layer for
