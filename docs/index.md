@@ -2,22 +2,6 @@
 
 This repository is set up for the SUEWS Community Hackathon practice workflow.
 
-## Current Status
-
-- Repository created from `UMEP-dev/suews-hackathon-template`.
-- `TASK_BRIEF.md` reviewed.
-- UDA-city challenge dataset loaded into `data/uda-city-hackathon`.
-- Official SUEWS smoke test completed for 10 neighbourhoods.
-- GitHub Pages enabled from the `docs/` folder.
-
-## Smoke Test Result
-
-The setup was checked with the official UDA-city smoke test using `supy 2026.6.5`.
-
-```text
-OK: 10 site(s) x 2,016 steps (7 days) under supy 2026.6.5; NARP+OHM on disk; T2 26.2..38.9 C; config: uda-city.yml.
-```
-
 ## Neighbourhood Characteristics
 
 UDA-city has 10 synthetic neighbourhoods. Surface fractions are from the
