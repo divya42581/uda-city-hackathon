@@ -44,6 +44,25 @@ The deciduous-tree fraction is `0.000` for all neighbourhoods.
 | 9 | Fuzhou Lanes | hotspot | 0.500 | 0.350 | 0.030 | 0.020 | 0.080 | 0.020 | 300 | 400 |
 | 10 | Zheng He Towers | core | 0.360 | 0.440 | 0.060 | 0.040 | 0.050 | 0.050 | 250 | 130 |
 
+## Methods
+
+1. Heat hazard was calculated from SUEWS 2 m air temperature (`T2`) as the
+   number of hours where hourly mean `T2 > 35 C`. These dangerous-heat hours
+   were scaled from `0` to `1` across the 10 neighbourhoods. [`risk_bridge.py`,
+   `risk_bridge.md`]
+
+2. Exposure was calculated from daytime population density (`population_day`).
+   Vulnerability was calculated from older people, young children, low AC
+   access (`1 - ac_access`), outdoor workers, and deprivation. Both exposure
+   and vulnerability were scaled from `0` to `1`. [`neighbourhoods.yml`,
+   `socioeconomic.csv`, `risk_bridge.py`]
+
+3. Final heat risk was calculated by combining the scaled hazard, exposure, and
+   vulnerability scores using a geometric mean:
+   `risk = (hazard x exposure x vulnerability)^(1/3)`. The final risk score
+   was scaled from `0` to `1` and used to rank neighbourhoods. [`risk_bridge.py`,
+   `risk_bridge.md`]
+
 ## Step 1: Present Heat Risk
 
 The present hot-humid scenario has now been run for all 10 UDA-city
