@@ -80,24 +80,11 @@ The deciduous-tree fraction is `0.000` for all neighbourhoods.
 | 2 | Serendib Rise | refuge | 26 | 80 | 0.400 | 0.000 | 0.274 | 0.000 | 7 |
 | 10 | Zheng He Towers | core | 2 | 250 | 0.000 | 0.773 | 0.000 | 0.000 | 7 |
 
-The main pattern is that the highest heat hazard is not automatically the
-highest heat risk. Jade Gardens has the most dangerous-heat hours, but Kampong
-Lama ranks highest for risk because the reference bridge combines hazard with
-much higher exposure and vulnerability.
-
 ![Horizontal bar chart comparing scaled heat hazard and final risk for each UDA-city neighbourhood.](present_hazard_risk_bar.png)
 
 **Figure 1. Present-day heat hazard and final risk across UDA-city
 neighbourhoods.** Both metrics are scaled from `0` to `1`, where `1` is the
-highest value among the 10 neighbourhoods. Orange shows physical heat hazard;
-dark blue shows the final heat-risk index after exposure and vulnerability are
-included.
-
-To read the plot, compare the orange hazard bar with the dark blue risk bar for
-each neighbourhood. Jade Gardens has the highest heat hazard, but its final risk
-is low because exposure is low. Kampong Lama ranks highest for final risk
-because its substantial heat hazard overlaps with high exposure and
-vulnerability.
+highest value among the 10 neighbourhoods.
 
 ## Key Results and Interpretation
 
