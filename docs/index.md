@@ -81,7 +81,6 @@ The deciduous-tree fraction is `0.000` for all neighbourhoods.
 | 10 | Zheng He Towers | core | 2 | 250 | 0.000 | 0.773 | 0.000 | 0.000 | 7 |
 
 ![Horizontal bar chart comparing scaled heat hazard and final risk for each UDA-city neighbourhood.](present_hazard_risk_bar.png)
-
 **Figure 1. Present-day heat hazard and final risk across UDA-city
 neighbourhoods.** Both metrics are scaled from `0` to `1`, where `1` is the
 highest value among the 10 neighbourhoods.
@@ -99,13 +98,6 @@ highest value among the 10 neighbourhoods.
 - **These scores are relative rankings within UDA-city**, so they compare the
   10 neighbourhoods with each other rather than predicting absolute health
   outcomes.
-
-## Hackathon Task
-
-The full hackathon task is to use SUEWS to produce a heat-hazard layer for
-UDA-city, translate that hazard into a socio-economic heat-risk indicator, and
-explain clearly where the hazard-to-risk bridge is scientifically strong and
-where it breaks.
 
 ## SUEWS Citation
 
