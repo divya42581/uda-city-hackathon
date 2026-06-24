@@ -99,6 +99,46 @@ highest value among the 10 neighbourhoods.
   10 neighbourhoods with each other rather than predicting absolute health
   outcomes.
 
+## Heat Hazard and Risk Paradox for Future Scenario
+
+**Table 2. Future Scenario Heat Hazard and Risk Ranking**
+
+| Grid | Neighbourhood | Type | Dangerous heat hours | Day pop. | Hazard | Exposure | Vulnerability | Risk index | Rank |
+|---:|---|---|---:|---:|---:|---:|---:|---:|---:|
+| 4 | Kampong Lama | hotspot | 249 | 300 | 0.940 | 1.000 | 0.950 | 1.000 | 1 |
+| 9 | Fuzhou Lanes | hotspot | 212 | 300 | 0.738 | 1.000 | 0.972 | 0.930 | 2 |
+| 5 | Dhobi Lines | hotspot | 217 | 300 | 0.765 | 1.000 | 0.916 | 0.923 | 3 |
+| 7 | Mlima Moto | hotspot | 149 | 300 | 0.393 | 1.000 | 1.000 | 0.761 | 4 |
+| 6 | Lusitano Square | core | 129 | 250 | 0.284 | 0.773 | 0.089 | 0.280 | 5 |
+| 8 | Victoria Exchange | core | 120 | 250 | 0.235 | 0.773 | 0.056 | 0.225 | 6 |
+| 1 | Jade Gardens | refuge | 260 | 80 | 1.000 | 0.000 | 0.324 | 0.000 | 7 |
+| 3 | Taman Melati | refuge | 243 | 80 | 0.907 | 0.000 | 0.363 | 0.000 | 7 |
+| 2 | Serendib Rise | refuge | 205 | 80 | 0.699 | 0.000 | 0.274 | 0.000 | 7 |
+| 10 | Zheng He Towers | core | 77 | 250 | 0.000 | 0.773 | 0.000 | 0.000 | 7 |
+
+![Horizontal bar chart comparing scaled future heat hazard and final risk for each UDA-city neighbourhood.](future_hazard_risk_bar.png)
+**Figure 2. Future heat hazard and final risk across UDA-city
+neighbourhoods.** Both metrics are scaled from `0` to `1`, where `1` is the
+highest value among the 10 neighbourhoods under the future `+2.5 C`
+pseudo-warming scenario.
+
+## Future Key Results and Interpretation
+
+- **Dangerous-heat hours increase strongly in the future scenario**, showing
+  that the `+2.5 C` pseudo-warming shifts all neighbourhoods toward more
+  frequent hazardous heat.
+- **Kampong Lama remains the highest final heat-risk neighbourhood** because it
+  combines very high heat hazard with high exposure and high vulnerability.
+- **Jade Gardens has the highest future heat hazard** with 260 dangerous-heat
+  hours, but its final risk score remains low because daytime population
+  exposure is low.
+- **Fuzhou Lanes and Dhobi Lines become very close in final risk**, showing
+  that high vulnerability and high exposure can make neighbourhoods with
+  similar heat loads difficult to separate in priority ranking.
+- **The future scenario strengthens the heat hazard-risk paradox:** the place
+  with the most dangerous-heat hours is still not the place with the highest
+  final risk.
+
 ## Hazard-to-Risk Bridge
 
 **Where the bridge is scientifically strong**
